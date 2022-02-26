@@ -13,7 +13,7 @@ Para subir novos códigos ao repositório é necessário commitar alterações n
   
   Para fazer commits:
   ```sh
-    git add *file-name* \
+    git add *file-name*
     git commit -m "*commit-message*"
   ```
   
@@ -21,7 +21,6 @@ Para subir novos códigos ao repositório é necessário commitar alterações n
 
   Para transferir alterações da main para dev
   ```sh
-    git rebase main \
-    
+    git rebase main
   ```
   após fazer rebase você pode querer atualizar o branch dev fazendo commit.
