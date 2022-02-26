@@ -1,6 +1,6 @@
-<h1 align="center"> CMS para HEMS </h1>
+<h1 align="center"> ⚡ CMS para HEMS ⚡ </h1>
 
-<p align="center"> Projeto de um Sistema de Gerenciamento Central (CMS) para uma solução Gestão de Energia Doméstica (HEMS) </p>
+<p align="center"> Projeto de um Sistema de Gerenciamento Central (CMS) para um Sistema de Gestão de Energia Doméstica (HEMS) </p>
 
 <p align="center">
 
@@ -91,7 +91,7 @@ Before starting, you will need to have the following tools installed on your mac
 Among other functions, the Docker and docker-compose are used to run the following databases:
 
   - [MongoDB](https://www.mongodb.com/)
-  - [InfluxDB](https://www.influxdata.com/).
+  - [InfluxDB](https://www.influxdata.com/)
 
 We also recommend install the follodwing GUI applications:
 
@@ -117,9 +117,21 @@ $ npm install
 
 Primeira execução do projeto:
 ```sh
+  cd hems-cms-project
   docker-compose pull
 ```
-Fluxo padrão de execução em modo de desenvolvimento:
+
+Modo de produção:
+
+```sh
+  cd hems-cms-project
+  docker-compose up -d
+```
+
+Acessar backend em: http://localhost:5050  
+Acessar frontend em: http://localhost:5052
+
+Modo de desenvolvimento:
 
 - Subir os bancos de dados em containers
   ```sh
@@ -132,15 +144,15 @@ Fluxo padrão de execução em modo de desenvolvimento:
     docker-compose up -d vernemq
   ```
   
-- Subir o backend em modo de desenvolvimento
+- Subir o backend em modo de desenvolvimento (acessar em http://localhost:8082)
   ```sh
     cd ./backend
     npm install
     npm run run
     npm run watch
   ```
-  
-- Subir o frontend em modo de desenvolvimento
+
+- Subir o frontend em modo de desenvolvimento (acessar em http://localhost:8080)
   ```sh
      cd ./frontend
      npm install
@@ -171,42 +183,7 @@ Fluxo padrão de execução em modo de desenvolvimento:
     sudo rm -rf ./mongodb
     sudo rm -rf ./influxdb
   ```
-Modo de produção:
 
-- Para executar o projeto pela primeira vez
-```sh
-  cd ./
-  docker-compose pull \
-  docker-compose up -d
-```
-## para acessar backend em modo de produção
-- http://localhost:5050  
-## para acessar o frontend em modo de produção
-- http://localhost:5052
-## para acessar backend em modo de desenvolvimento
-- http://localhost:8082
-## para acessar o frontend em modo de desenvolvimento
-- http://localhost:8080
-
-<h2 id="methodology"> 🤝 Metodologia de Trabalho </h2>
-
-Para subir novos códigos ao repositório é necessário commitar alterações no branch dev e depois fazer pull request e merge para o branch main
-
-  - Para trocar para o branch dev:
-    > git switch dev
-    > # ou entao: git checkout dev *pesquisar diferenca
-
-  - Para fazer commits:
-    > git add *file-name* \
-    > git commit -m "*commit-message*"
-
-  - Para descrever os commits usar *conventional commits*
-      - https://www.conventionalcommits.org/en/v1.0.0/
-
-  - Para transferir alterações da main para dev
-    > git rebase main \
-    > \# após fazer rebase você pode querer atualizar o branch dev fazendo commit...
-    
 <h2 id="contributing"> 🤝 Contributing </h2>
 
 [//]: # (Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.)
