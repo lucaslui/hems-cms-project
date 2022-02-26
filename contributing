@@ -1,0 +1,19 @@
+<h1> 🤝 Metodologia de Trabalho </h1>
+
+Para subir novos códigos ao repositório é necessário commitar alterações no branch dev e depois fazer pull request e merge para o branch main
+
+  - Para trocar para o branch dev:
+    > git switch dev
+    > # ou entao: git checkout dev *pesquisar diferenca
+
+  - Para fazer commits:
+    > git add *file-name* \
+    > git commit -m "*commit-message*"
+
+  - Para descrever os commits usar *conventional commits*
+      - https://www.conventionalcommits.org/en/v1.0.0/
+
+  - Para transferir alterações da main para dev
+    > git rebase main \
+    > \# após fazer rebase você pode querer atualizar o branch dev fazendo commit...
+    
