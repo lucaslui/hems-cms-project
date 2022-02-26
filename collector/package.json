@@ -1,0 +1,17 @@
+{
+  "name": "webhook-worker",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "start": "node ./src/index.js",
+    "build:docker": "docker build -t lucaslui/collector-image .",
+    "push:docker": "docker push lucaslui/collector-image"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "@influxdata/influxdb-client": "^1.15.0",
+    "bcrypt": "^5.0.1",
+    "express": "^4.17.1",
+    "mongodb": "^4.1.0"
+  }
+}

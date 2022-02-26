@@ -1,0 +1,51 @@
+@import "./colors.scss";
+
+* {
+  font-family: "Poppins", sans-serif;
+  font-size: 14px;
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: $background;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+  border: 1px solid #bbb;
+  line-height: 40px;
+  border-radius: 4px;
+  padding: 0px 16px;
+
+  &:focus {
+    outline-color: $primary;
+  }
+}
+
+button {
+  background-color: $primary;
+  color: $white;
+  border: none;
+  line-height: 40px;
+  // border-radius: 8px;
+  padding: 0px 24px;
+
+  &:hover {
+    opacity: 0.8;
+  }
+
+  &:focus {
+    outline-color: $primary;
+  }
+
+  &:disabled {
+    background-color: $disabled;
+      
+    &:hover {
+      opacity: 1;
+    }
+  }
+}

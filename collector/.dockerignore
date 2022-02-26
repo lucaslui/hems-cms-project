@@ -1,0 +1,5 @@
+node_modules
+influxdb
+mongodb
+.gitignore
+example-data

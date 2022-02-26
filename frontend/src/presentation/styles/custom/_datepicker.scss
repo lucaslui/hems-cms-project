@@ -1,0 +1,22 @@
+.react-datepicker-wrapper{
+    .react-datepicker__input-container {
+
+        padding-right: 10px;
+        
+        .inner-addon { 
+            position: relative; 
+        }
+        .inner-addon .fa-calendar-alt {
+          position: absolute;
+          padding: 11px;
+          pointer-events: none;
+        }        
+
+        .left-addon .fa-calendar-alt  { left:  0px;}
+        .left-addon input { padding-left:  30px; }
+
+        input {
+            width: 130px;
+        }
+    }
+}

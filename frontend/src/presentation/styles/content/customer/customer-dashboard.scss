@@ -1,0 +1,96 @@
+@import '../../colors';
+
+.single-month-stats {
+    .month-name {
+        width: 1em;
+    }
+
+    .month-value {
+        padding-top: 0.75em;
+    }
+}
+
+.information {
+    margin: 0;
+    width: 100%;
+    max-width: none;
+
+    .col > .row {
+        padding: 0.5em;
+    }
+
+    .col {
+        padding: 0 4em;
+    }
+
+    br{
+        display: none;
+    }
+
+    span {
+        white-space: nowrap;
+        font-weight: normal;
+        margin: auto 0 auto auto;
+    }
+
+    strong {
+        white-space: nowrap;
+        margin: auto auto auto 0;
+    }
+}
+
+.table-dark {
+    color: white;
+
+    th {
+        background-color: $secondary !important;
+    }
+}
+
+.room-tr {
+    font-weight: bold;
+    background-color: $backgroundLight;
+}
+
+.outlet-tr {
+    td {
+        
+    }
+}
+
+/*.information {
+    th{
+        padding: 0.5em
+    }
+
+    .info-value {
+        
+        
+    }
+
+    .info-value > * {
+        white-space: nowrap;
+        font-weight: normal;
+        margin-right: 12em;
+    }
+
+    .info-title > * {
+        white-space: nowrap;
+    }
+
+}*/
+
+@media screen and ( max-width: 1199px ) {
+    .information{
+        span {
+            white-space: nowrap;
+            margin: 1em 0 1em auto;
+        }
+        > strong {
+            display: block;
+        }
+        .col > .row {
+            border-bottom: dotted 1px $background;
+        }
+    }
+}

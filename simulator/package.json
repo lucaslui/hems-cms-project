@@ -1,0 +1,19 @@
+{
+  "name": "influxdb-test",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "toDatabase": "node generate-data-to-database",
+    "toCollector": "node generate-data-to-collector"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "mqtt": "^4.2.8",
+    "@influxdata/influxdb-client": "^1.15.0",
+    "@influxdata/influxdb-client-apis": "^1.15.0",
+    "influx": "^5.9.2"
+  }
+}

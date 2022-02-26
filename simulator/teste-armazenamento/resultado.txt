@@ -1,0 +1,60 @@
+teste de consumo de armazenamento:
+ 
+  tempo: 1h   100 tomadas   envio: 5 em 5 segundos
+  
+  inicio: 36,8 MB   imediatamente depois: 51,3 MB ---> * total: 14,5 MB/h
+  inicio: 36,8 MB   mais tempo depois:    43,3 MB ---> * total: 6,5 MB/h 
+
+  * com o passar de um tempo maior após a finalização do teste,
+  * o influx db comprimiu os dados e reduziu o armazemento em 8 MB 
+
+resultado:
+
+  consumo máximo por hora de 100 tomadas: 14,5 MB/h
+  consumo mínimo por hora de 100 tomadas: 6,5 MB/h
+
+----------------------------------------------------
+
+estimativa mensal:
+
+  1 mês = 24h * 30 dias = 720 h
+  
+  estimativa: 
+  * 100 tomadas enviando dados de 5 em 5 segundos durante 1 mês
+  
+  consumo máximo mensal de 100 tomadas: 
+  720h * 14,5 MB/h = 10440 MB = 10,4 GB/mês
+  
+  consumo mínimo mensal de 100 tomadas: 
+  720h * 6,5 MB/h = 4680 MB = 4,7 GB/mês
+
+----------------------------------------------------
+
+estimativa por tomada:
+
+  consumo máximo mensal de 1 tomada: 
+  (10,4 GB/mês) / (100 tomadas) = 0,104 GB/mês ou 104 MB/mês
+  
+  consumo mínimo mensal de 1 tomada: 
+  (4,7 GB/mês) / (100 tomadas) = 0,047 GB/mês ou 47 MB/mês
+  
+  consumo máximo por hora de 1 tomada: 
+  (14,5 MB/h) / (100 tomadas) = 0,145 MB/h
+  
+  consumo mínimo por hora de 1 tomada: 
+  (6,5 MB/h) / (100 tomadas) = 0,065 MB/h
+  
+----------------------------------------------------
+
+estimativa para uma cidade como Ipiranga:
+
+  Ipiranga = 15251 habitantes
+
+  supondo: 3050 casa com 10 tomadas/casa = 30500 tomadas
+  
+  como o consumo mensal máximo por tomada é 0,104 GB/mês, então:
+  
+  estimativa máxima do consumo mensal de Ipiranga: 
+  (0,104 GB/mês) * 30500 tomadas = 3050 GB/mês ou 3,05 TB/mês
+
+

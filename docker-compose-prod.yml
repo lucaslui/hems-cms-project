@@ -1,0 +1,86 @@
+version: "3"
+
+services: 
+  collector:
+    container_name: collector-container
+    restart: always
+    image: lucaslui/collector-image:latest
+    user: "node"
+    ports:
+      - "8081:8081"
+    environment:
+      NODE_ENV: production
+      PORT: 8081
+      HOST: '0.0.0.0'
+      INFLUX_URL: https://us-east-1-1.aws.cloud2.influxdata.com
+      ORG: hems-org
+      BUCKET: hems-bucket
+      TOKEN: rdHMyK4_GrLE4pk5nwTjijvSnkUuOX3JCYQX0jofIVYtHq-Jsxe4Xf8V35sLecJexJY2QCZ8g1Lwv1LrIsoHEg==
+
+  vernemq:
+    container_name: vernemq-container
+    image: vernemq/vernemq:1.10.3
+    restart: always
+    links:
+      - "collector:collector"
+    ports:
+      - "1883:1883"
+      - "8888:8888"
+    depends_on:
+      - collector
+    environment:
+      DOCKER_VERNEMQ_ACCEPT_EULA: "yes"
+      # DOCKER_VERNEMQ_ALLOW_ANONYMOUS: "on"
+      DOCKER_VERNEMQ_LISTENER__TCP__LOCALHOST: "0.0.0.0:1883"
+      DOCKER_VERNEMQ_ALLOW_ANONYMOUS: "on"
+      # DOCKER_VERNEMQ_PLUGINS__VMQ_PASSWD: "off"
+      # DOCKER_VERNEMQ_PLUGINS__VMQ_ACL: "off"
+
+      # Authentication with MongoDB
+      # DOCKER_VERNEMQ_PLUGINS__VMQ_DIVERSITY: "on"
+      # DOCKER_VERNEMQ_VMQ_DIVERSITY__AUTH_MONGODB__ENABLED: "on"
+      # DOCKER_VERNEMQ_VMQ_DIVERSITY__MONGODB__HOST: projetocopelcluster-shard-00-01.gpwsi.mongodb.net/software-nuvem-db
+      # DOCKER_VERNEMQ_VMQ_DIVERSITY__MONGODB__PORT: 27017
+      # DOCKER_VERNEMQ_VMQ_DIVERSITY__MONGODB__LOGIN: user
+      # DOCKER_VERNEMQ_VMQ_DIVERSITY__MONGODB__PASSWORD: user1020304050
+      # DOCKER_VERNEMQ_VMQ_DIVERSITY__MONGODB__DATABASE: software-nuvem-db
+
+      # Logs
+      DOCKER_VERNEMQ_LOG__CONSOLE: "console"
+      DOCKER_VERNEMQ_LOG__CONSOLE__LEVEL: "warning"
+
+      # Webhooks
+      DOCKER_VERNEMQ_PLUGINS__VMQ_WEBHOOKS: "on"
+      DOCKER_VERNEMQ_VMQ_WEBHOOKS__WORKER1__HOOK: "on_publish"
+      DOCKER_VERNEMQ_VMQ_WEBHOOKS__WORKER1__ENDPOINT: "http://collector:8081/webhook"
+  
+  backend: 
+    container_name: backend-container
+    restart: always
+    image: lucaslui/backend-image-repository:latest
+    ports:
+      - "5050:5050"
+    environment:
+      NODE_ENV: production
+      PORT: 5050
+      HOST: '0.0.0.0'
+      MONGO_URL: "mongodb+srv://user:user1020304050@projetocopelcluster.gpwsi.mongodb.net/software-nuvem-db?retryWrites=true&w=majority" 
+      INFLUX_URL: https://us-east-1-1.aws.cloud2.influxdata.com
+      INFLUX_TOKEN: rdHMyK4_GrLE4pk5nwTjijvSnkUuOX3JCYQX0jofIVYtHq-Jsxe4Xf8V35sLecJexJY2QCZ8g1Lwv1LrIsoHEg==
+      INFLUX_ORG: hems-org
+      INFLUX_BUCKET: hems-bucket
+
+  frontend:
+    container_name: frontend-container
+    restart: always
+    image: lucaslui/frontend-image:latest 
+    ports:
+      - "80:5052"
+    links:
+      - "backend:backend" 
+    environment:
+      NODE_ENV: production
+      PORT: 5052
+      HOST: '0.0.0.0'
+    depends_on:
+      - backend 

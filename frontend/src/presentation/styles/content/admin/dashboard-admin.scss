@@ -1,0 +1,16 @@
+.information {
+  .info-title {
+    padding: 1em;
+    strong {
+      white-space: normal;
+    }
+  }
+  .info-value {
+    padding: 1em;
+    padding-right: 3em;
+    text-align: right;
+    span {
+      white-space: normal;
+    }
+  }
+}

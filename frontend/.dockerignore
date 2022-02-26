@@ -1,0 +1,13 @@
+.git
+.vscode
+dist
+node_modules
+.dockerignore
+.eslintignore
+.eslintrc.json
+.gitignore
+.huskyrc.json
+.lintstagedrc.json
+Dockerfile
+webpack.dev.js
+

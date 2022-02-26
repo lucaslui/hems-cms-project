@@ -1,0 +1,10 @@
+.vscode
+node_modules
+dist
+coverage
+mongodb
+influxdb
+!src/**/mongodb
+!src/**/influxdb
+!src/**/data
+!tests/**/data

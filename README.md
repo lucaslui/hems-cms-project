@@ -84,9 +84,10 @@ The following tools were used in the construction of the project:
 Before starting, you will need to have the following tools installed on your machine:
 
   - npm >= 5.5.x
-  - node >= 12.0.x
-  - Docker 
-  - docker-compose >= 1.29.x
+  - [node >= 12.0.x](https://docs.docker.com/get-docker/)
+  - [Docker](https://docs.docker.com/get-docker/)
+  - [docker-compose*](https://docs.docker.com/compose/install/)  
+*somente necessário no Linux pois o "Docker Desktop" do Windows já vem o docker-compose
 
 Among other functions, the Docker and docker-compose are used to run the following databases:
 
@@ -95,8 +96,8 @@ Among other functions, the Docker and docker-compose are used to run the followi
 
 We also recommend install the follodwing GUI applications:
 
-  - [Mongodb Compass](https://www.mongodb.com/products/compass)
-  - [MQTTX](https://mqttx.app/)
+  - [Mongodb Compass](https://www.mongodb.com/products/compass) como gerenciador do MongoDB
+  - [MQTTX](https://mqttx.app/) para simular o envio de dados para o MQTT Broker
 
 <h2 id="install"> 🏗️ Install </h2>
 
@@ -183,6 +184,13 @@ Modo de desenvolvimento:
     sudo rm -rf ./mongodb
     sudo rm -rf ./influxdb
   ```
+
+- Através de um terminal, entrar na mesma pasta onde está o arquivo docker-compose.yml.
+- Executar o comando "docker login" usando as credenciais:
+  - Username: "lucaslui"
+  - Password "rtdsp1020304050"
+- Executar o comando "docker-compose pull".
+- Executar o comando "docker-compose up".
 
 <h2 id="contributing"> 🤝 Contributing </h2>
 

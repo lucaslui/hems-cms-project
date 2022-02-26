@@ -1,0 +1,30 @@
+@import "../../styles/colors.scss";
+
+.inputWrap {
+  display: flex; 
+  align-items: center;
+  width: 100%;
+  margin-bottom: 15px;
+  position: relative;
+
+  input {
+    flex-grow: 1;
+    padding-right: 32px;
+    width: 100%;
+
+    &[data-status="valid"] {
+      border-color: $valid;
+    }
+  
+    &[data-status="invalid"] {
+      border-color: $invalid;    
+    }
+  }
+
+  .status {
+    position: absolute;
+    font-size: 12px;
+    right: 10px;
+    cursor: help;
+  }
+}
