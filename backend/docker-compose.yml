@@ -1,6 +1,6 @@
 version: "3"
 services: 
-  mongo: 
+  mongodb: 
     container_name: mongo-container
     image: mongo:4.2
     restart: always
@@ -11,7 +11,7 @@ services:
       - "27017:27017"
     environment:
       MONGO_INITDB_ROOT_USERNAME: admin
-      MONGO_INITDB_ROOT_PASSWORD: rtdsp1020304050
+      MONGO_INITDB_ROOT_PASSWORD: admin1234
       MONGO_INITDB_DATABASE: software-nuvem-db
   
   influxdb:
@@ -26,7 +26,7 @@ services:
     environment:
       DOCKER_INFLUXDB_INIT_MODE: setup 
       DOCKER_INFLUXDB_INIT_USERNAME: admin
-      DOCKER_INFLUXDB_INIT_PASSWORD: rtdsp1020304050
+      DOCKER_INFLUXDB_INIT_PASSWORD: admin1234
       DOCKER_INFLUXDB_INIT_ORG: hems-org
       DOCKER_INFLUXDB_INIT_BUCKET: hems-bucket 
       DOCKER_INFLUXDB_INIT_ADMIN_TOKEN: i_OORQe_PBbaPFpCp75QS_EdqAIM77FJ2QrHo4Op25kzEvggITWHim8ab0OaG5zLIyrShQbvTbwrwq0dpADKgg==
@@ -44,13 +44,13 @@ services:
       - "5050:5050"
       - "9222:9222"
     links:
-      - "mongo:mongo"
+      - "mongodb:mongodb"
       - "influxdb:influxdb"
     depends_on:
-      - mongo    
+      - mongodb   
       - influxdb
     environment:
-      MONGO_URL: mongodb://user:user1020304050@mongo:27017/software-nuvem-db  
+      MONGO_URL: mongodb://user:user1234@mongodb:27017/software-nuvem-db  
       INFLUX_URL: http://influxdb:8086
       INFLUX_TOKEN: i_OORQe_PBbaPFpCp75QS_EdqAIM77FJ2QrHo4Op25kzEvggITWHim8ab0OaG5zLIyrShQbvTbwrwq0dpADKgg==
       INFLUX_ORG: hems-org

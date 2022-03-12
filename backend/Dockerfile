@@ -1,8 +1,8 @@
 FROM node:14
 
-COPY ./ /home/software-nuvem/backend
+COPY ./ /home/app/backend
 
-WORKDIR /home/software-nuvem/backend
+WORKDIR /home/app/backend
 
 RUN npm install
 RUN npm run build
