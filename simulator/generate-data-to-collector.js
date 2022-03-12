@@ -2,7 +2,7 @@ var mqtt = require('mqtt')
 var client = mqtt.connect('http://localhost:1883', { 
     clientId: "hems_1",
     username: "hems_1",
-    password: "hems1020304050"
+    password: "hems1234"
 })
 
 const getRandomArbitrary = (min, max) => {
