@@ -1,10 +1,10 @@
 FROM node:14
 
-COPY ./ /home/software-nuvem/frontend
+COPY ./ /home/app/frontend
 
-WORKDIR /home/software-nuvem/frontend
+WORKDIR /home/app/frontend
 
-ENV API_URL http://ec2-18-230-78-12.sa-east-1.compute.amazonaws.com:5050/api/ 
+ARG API_URL
 
 RUN echo API_URL: $API_URL && \
     echo $API_URL
