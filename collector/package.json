@@ -3,15 +3,26 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "start": "node ./src/index.js",
+    "start": "node ./dist/src/start-app.js",
+    "build": "rimraf dist && tsc -p ./tsconfig.json",
     "build:docker": "docker build -t lucaslui/collector-image .",
     "push:docker": "docker push lucaslui/collector-image"
   },
   "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^17.0.21",
+    "swagger-ui-express": "^4.3.0",
+    "typescript": "^4.6.2"
+  },
   "dependencies": {
     "@influxdata/influxdb-client": "^1.15.0",
     "bcrypt": "^5.0.1",
     "express": "^4.17.1",
-    "mongodb": "^4.1.0"
+    "module-alias": "^2.2.2",
+    "jsonwebtoken": "^8.5.1",
+    "mongodb": "^3.6.3"
+  },
+  "_moduleAliases": {
+    "@": "dist"
   }
 }
