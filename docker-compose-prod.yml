@@ -1,32 +1,14 @@
 version: "3"
 
 services: 
-  collector:
-    container_name: collector-container
-    restart: always
-    image: lucaslui/collector-image:latest
-    user: "node"
-    ports:
-      - "8081:8081"
-    environment:
-      HOST: '0.0.0.0'
-      PORT: 8081
-      INFLUX_URL: https://us-east-1-1.aws.cloud2.influxdata.com
-      ORG: hems-org
-      BUCKET: hems-bucket
-      TOKEN: rdHMyK4_GrLE4pk5nwTjijvSnkUuOX3JCYQX0jofIVYtHq-Jsxe4Xf8V35sLecJexJY2QCZ8g1Lwv1LrIsoHEg==
 
   vernemq:
     container_name: vernemq-container
     image: vernemq/vernemq:1.10.3
     restart: always
-    links:
-      - "collector:collector"
     ports:
       - "1883:1883"
       - "8888:8888"
-    depends_on:
-      - collector
     logging:
       driver: none
     environment:
@@ -40,11 +22,27 @@ services:
       # Authentication with Webhook
       DOCKER_VERNEMQ_PLUGINS__VMQ_WEBHOOKS: "on"
       DOCKER_VERNEMQ_VMQ_WEBHOOKS__WEBHOOK1__HOOK: "auth_on_register"
-      DOCKER_VERNEMQ_VMQ_WEBHOOKS__WEBHOOK1__ENDPOINT: "http://collector:8081/auth"
+      DOCKER_VERNEMQ_VMQ_WEBHOOKS__WEBHOOK1__ENDPOINT: "http://collector:3030/auth"
       DOCKER_VERNEMQ_VMQ_WEBHOOKS__WEBHOOK2__HOOK: "auth_on_publish"
-      DOCKER_VERNEMQ_VMQ_WEBHOOKS__WEBHOOK2__ENDPOINT: "http://collector:8081/auth-publish"
+      DOCKER_VERNEMQ_VMQ_WEBHOOKS__WEBHOOK2__ENDPOINT: "http://collector:3030/auth-publish"
       DOCKER_VERNEMQ_VMQ_WEBHOOKS__WEBHOOK3__HOOK: "on_publish"
-      DOCKER_VERNEMQ_VMQ_WEBHOOKS__WEBHOOK3__ENDPOINT: "http://collector:8081/publish"
+      DOCKER_VERNEMQ_VMQ_WEBHOOKS__WEBHOOK3__ENDPOINT: "http://collector:3030/publish"
+
+  collector:
+    container_name: collector-container
+    restart: always
+    image: lucaslui/collector-image:latest
+    ports:
+      - "3030:3030"
+    depends_on:
+      - vernemq
+    environment:
+      HOST: '0.0.0.0'
+      PORT: 3030
+      INFLUX_URL: https://us-east-1-1.aws.cloud2.influxdata.com
+      ORG: hems-org
+      BUCKET: hems-bucket
+      TOKEN: rdHMyK4_GrLE4pk5nwTjijvSnkUuOX3JCYQX0jofIVYtHq-Jsxe4Xf8V35sLecJexJY2QCZ8g1Lwv1LrIsoHEg==
   
   backend: 
     container_name: backend-container
@@ -55,7 +53,7 @@ services:
     environment:
       HOST: '0.0.0.0'
       PORT: 5050
-      MONGO_URL: "mongodb+srv://user:user1020304050@projetocopelcluster.gpwsi.mongodb.net/software-nuvem-db?retryWrites=true&w=majority" 
+      MONGO_URL: "mongodb+srv://user:user1020304050@projetocopelcluster.gpwsi.mongodb.net/software-nuvem-db" 
       INFLUX_URL: https://us-east-1-1.aws.cloud2.influxdata.com
       INFLUX_TOKEN: rdHMyK4_GrLE4pk5nwTjijvSnkUuOX3JCYQX0jofIVYtHq-Jsxe4Xf8V35sLecJexJY2QCZ8g1Lwv1LrIsoHEg==
       INFLUX_ORG: hems-org
@@ -67,8 +65,6 @@ services:
     image: lucaslui/frontend-image:latest 
     ports:
       - "80:8080"
-    links:
-      - "backend:backend" 
     depends_on:
       - backend
     environment:
