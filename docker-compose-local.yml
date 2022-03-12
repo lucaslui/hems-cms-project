@@ -1,0 +1,63 @@
+version: "3"
+
+networks:
+  default:
+    external:
+      name: mononet
+
+services: 
+  collector:
+    container_name: collector-container
+    restart: always
+    build: 
+      context: ./collector
+    ports:
+      - "3030:3030"
+    expose:
+      - "3030"
+    networks:
+      - default
+    environment:
+      HOST: '0.0.0.0'
+      PORT: 3030      
+      MONGO_URL: mongodb://user:user1234@mongodb:27017/software-nuvem-db  
+      INFLUX_URL: http://influxdb:8086
+      ORG: hems-org
+      BUCKET: hems-bucket
+      TOKEN: i_OORQe_PBbaPFpCp75QS_EdqAIM77FJ2QrHo4Op25kzEvggITWHim8ab0OaG5zLIyrShQbvTbwrwq0dpADKgg==
+    
+  backend: 
+    container_name: backend-container
+    restart: always
+    build: 
+      context: ./backend
+    ports:
+      - "5050:5050"
+    networks:
+      - default
+    environment:
+      HOST: '0.0.0.0'
+      PORT: 5050      
+      MONGO_URL: mongodb://user:user1234@mongodb:27017/software-nuvem-db 
+      INFLUX_URL: http://influxdb:8086/
+      INFLUX_TOKEN: rdHMyK4_GrLE4pk5nwTjijvSnkUuOX3JCYQX0jofIVYtHq-Jsxe4Xf8V35sLecJexJY2QCZ8g1Lwv1LrIsoHEg==
+      INFLUX_ORG: hems-org
+      INFLUX_BUCKET: hems-bucket
+      JWT_SECRET: lucas1234
+
+  frontend:
+    container_name: frontend-container
+    restart: always
+    build: 
+      context: ./frontend
+      args:
+        API_URL: http://localhost:5050/api
+    ports:
+      - "8080:8080"
+    networks:
+      - default
+    depends_on:
+      - backend
+    environment:
+      HOST: '0.0.0.0'
+      PORT: 8080        

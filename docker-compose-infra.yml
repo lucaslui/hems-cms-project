@@ -1,0 +1,129 @@
+version: "3"
+
+networks:
+  default:
+    name: mononet
+
+services: 
+  mongodb: 
+    container_name: mongo-container
+    image: mongo:latest
+    restart: always
+    volumes: 
+      - ./_databases/mongodb:/data/db
+      - ./mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js
+    ports:
+      - "27017:27017"
+    networks:
+      - default
+    logging:
+      driver: none
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: admin1234
+      MONGO_INITDB_DATABASE: software-nuvem-db
+
+  influxdb:
+    container_name: influx-container
+    image: influxdb:latest
+    restart: always
+    volumes:
+      - ./_databases/influxdb/data:/var/lib/influxdb2
+      - ./_databases/influxdb/config:/etc/influxdb2
+    ports:
+      - "8086:8086"
+    networks:
+      - default
+    logging:
+      driver: none
+    environment:
+      DOCKER_INFLUXDB_INIT_MODE: setup 
+      DOCKER_INFLUXDB_INIT_USERNAME: admin
+      DOCKER_INFLUXDB_INIT_PASSWORD: admin1234
+      DOCKER_INFLUXDB_INIT_ORG: hems-org
+      DOCKER_INFLUXDB_INIT_BUCKET: hems-bucket 
+      DOCKER_INFLUXDB_INIT_ADMIN_TOKEN: i_OORQe_PBbaPFpCp75QS_EdqAIM77FJ2QrHo4Op25kzEvggITWHim8ab0OaG5zLIyrShQbvTbwrwq0dpADKgg==
+
+  vernemq:
+    container_name: vernemq-container
+    image: vernemq/vernemq:latest
+    restart: always
+    ports:
+      - "1883:1883"
+      - "8888:8888"
+    networks:
+      - default
+    logging:
+      driver: none
+    environment:
+      DOCKER_VERNEMQ_ACCEPT_EULA: "yes"
+      DOCKER_VERNEMQ_LISTENER__TCP__LOCALHOST: "0.0.0.0:1883"
+      # Without authentication
+      DOCKER_VERNEMQ_ALLOW_ANONYMOUS: "off"
+      # Authentication with file
+      DOCKER_VERNEMQ_PLUGINS__VMQ_PASSWD: "off"
+      DOCKER_VERNEMQ_PLUGINS__VMQ_ACL: "off"
+      # Authentication with MongoDB
+      DOCKER_VERNEMQ_PLUGINS__VMQ_DIVERSITY: "off"
+      # DOCKER_VERNEMQ_VMQ_DIVERSITY__AUTH_MONGODB__ENABLED: "on"
+      # DOCKER_VERNEMQ_VMQ_DIVERSITY__MONGODB__HOST: "mongo"
+      # DOCKER_VERNEMQ_VMQ_DIVERSITY__MONGODB__PORT: 27017
+      # DOCKER_VERNEMQ_VMQ_DIVERSITY__MONGODB__LOGIN: user
+      # DOCKER_VERNEMQ_VMQ_DIVERSITY__MONGODB__PASSWORD: user1020304050
+      # DOCKER_VERNEMQ_VMQ_DIVERSITY__MONGODB__DATABASE: software-nuvem-db
+      # Authentication with Webhook
+      DOCKER_VERNEMQ_PLUGINS__VMQ_WEBHOOKS: "on"
+      DOCKER_VERNEMQ_VMQ_WEBHOOKS__WEBHOOK1__HOOK: "auth_on_register"
+      DOCKER_VERNEMQ_VMQ_WEBHOOKS__WEBHOOK1__ENDPOINT: "http://collector:3030/auth"
+      DOCKER_VERNEMQ_VMQ_WEBHOOKS__WEBHOOK2__HOOK: "auth_on_publish"
+      DOCKER_VERNEMQ_VMQ_WEBHOOKS__WEBHOOK2__ENDPOINT: "http://collector:3030/auth-publish"
+      DOCKER_VERNEMQ_VMQ_WEBHOOKS__WEBHOOK3__HOOK: "on_publish"
+      DOCKER_VERNEMQ_VMQ_WEBHOOKS__WEBHOOK3__ENDPOINT: "http://collector:3030/publish"
+    
+  # collector:
+  #   container_name: collector-container
+  #   restart: always
+  #   build: 
+  #     context: ./collector
+  #   ports:
+  #     - "3030:3030"
+  #   environment:
+  #     HOST: '0.0.0.0'
+  #     PORT: 3030      
+  #     MONGO_URL: mongodb://user:user1234@mongodb:27017/software-nuvem-db  
+  #     INFLUX_URL: http://influxdb:8086
+  #     ORG: hems-org
+  #     BUCKET: hems-bucket
+  #     TOKEN: i_OORQe_PBbaPFpCp75QS_EdqAIM77FJ2QrHo4Op25kzEvggITWHim8ab0OaG5zLIyrShQbvTbwrwq0dpADKgg==
+    
+  # backend: 
+  #   container_name: backend-container
+  #   restart: always
+  #   build: 
+  #     context: ./backend
+  #   ports:
+  #     - "5050:5050"
+  #   environment:
+  #     HOST: '0.0.0.0'
+  #     PORT: 5050      
+  #     MONGO_URL: mongodb://user:user1234@mongodb:27017/software-nuvem-db 
+  #     INFLUX_URL: http://influxdb:8086/
+  #     INFLUX_TOKEN: rdHMyK4_GrLE4pk5nwTjijvSnkUuOX3JCYQX0jofIVYtHq-Jsxe4Xf8V35sLecJexJY2QCZ8g1Lwv1LrIsoHEg==
+  #     INFLUX_ORG: hems-org
+  #     INFLUX_BUCKET: hems-bucket
+  #     JWT_SECRET: lucas1234
+
+  # frontend:
+  #   container_name: frontend-container
+  #   restart: always
+  #   build: 
+  #     context: ./frontend
+  #     args:
+  #       API_URL: http://localhost:5050/api
+  #   ports:
+  #     - "8080:8080"
+  #   depends_on:
+  #     - backend
+  #   environment:
+  #     HOST: '0.0.0.0'
+  #     PORT: 8080        
