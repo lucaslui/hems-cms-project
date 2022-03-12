@@ -16,8 +16,6 @@ services:
       - "27017:27017"
     networks:
       - default
-    logging:
-      driver: none
     environment:
       MONGO_INITDB_ROOT_USERNAME: admin
       MONGO_INITDB_ROOT_PASSWORD: admin1234
@@ -34,8 +32,6 @@ services:
       - "8086:8086"
     networks:
       - default
-    logging:
-      driver: none
     environment:
       DOCKER_INFLUXDB_INIT_MODE: setup 
       DOCKER_INFLUXDB_INIT_USERNAME: admin
@@ -53,8 +49,6 @@ services:
       - "8888:8888"
     networks:
       - default
-    logging:
-      driver: none
     environment:
       DOCKER_VERNEMQ_ACCEPT_EULA: "yes"
       DOCKER_VERNEMQ_LISTENER__TCP__LOCALHOST: "0.0.0.0:1883"
