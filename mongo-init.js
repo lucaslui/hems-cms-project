@@ -1,8 +1,7 @@
-db.auth('admin', 'rtdsp1020304050')
-
+/* Create default database access for applications*/
 db.createUser({
   user: 'user',
-  pwd: 'user1020304050',
+  pwd: 'user1234',
   roles: [
     {
       role: 'readWrite',
@@ -11,20 +10,29 @@ db.createUser({
   ],
 });
 
-db.vmq_acl_auth.insert({
-    mountpoint: '',
-    client_id: 'hems_1',
+/* Add default hems controller */
+db.hems.insert({
+    _id: 'hems_1',
     username: 'hems_1',
-    passhash: '$2a$10$.uEEbFYuEhzVIbfPPSD.9ezkQqLxgSH.feV/HY2ur./0D0tSVTtku',
-    publish_acl: [
-        {
-            pattern: 'hems/data',
-            pattern: 'hems/%c/state/#'
-        }
-    ],
-    subscribe_acl: [
-        { 
-            pattern: 'hems/%c/commands/#'
-         }
-    ]
+    password: '$2a$12$z3BPpNMiiJVDYxIgz0P8xOhula/DX3c71lph.y99fJ39EiswYBWv6',
+    publishACL: ['hems/data', 'hems/state/hems_1'],
+    subscribeACL: ['hems/commands/hems_1']
+})
+
+/* Add default admin user */
+db.users.insert({
+    "name": "admin",
+    "email": "admin@email.com",
+    "password": "$2a$12$S0j7gdE1CHp0tGyL976vtOYuf0fmhX/3Frx6QxwdajePcUSrjTBSK",
+    "role": "admin",
+    "createdAt": new Date()
+})
+
+/* Add default customer user */
+db.users.insert({
+    "name": "customer",
+    "email": "customer@email.com",
+    "password": "$2a$12$S0j7gdE1CHp0tGyL976vtOYuf0fmhX/3Frx6QxwdajePcUSrjTBSK",
+    "role": "customer",
+    "createdAt": new Date()
 })
