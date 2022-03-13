@@ -12,17 +12,11 @@ export class HemsTopicAuthorizeUsecase implements IHemsTopicAuthorizeUsecase {
     if(hems) {
         if (hems.publishACL.some(item => item === authorizeData.topic)) {
             console.log('Pedido de publicação aprovado!')
-            return { 
-                result: 'ok' 
-            }
+            return { result: 'ok' }
         }
         else {
             console.log('Pedido de publicação rejeitado, tópico inválido ou não autorizado!')
-            return { 
-                result: { 
-                    error: "some error message" 
-                } 
-            }
+            return { result: { error: "some error message" } }
         }
     }        
     return null
