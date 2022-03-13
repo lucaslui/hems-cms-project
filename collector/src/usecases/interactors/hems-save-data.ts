@@ -9,11 +9,10 @@ export class HemsSaveDataUsecase implements IHemsSaveDataUsecase {
 
   async save (message: SaveDataRequestModel): Promise<SaveDataResponseModel> {    
     const payload = Buffer.from(message.payload, 'base64').toString('utf8')
-    console.log(`Dados recebidos: ${payload}`)
+    // console.log(`Dados recebidos: ${payload}`)
     if (message.topic == 'hems/data') {
         const measures = JSON.parse(payload.replace(/[']/g, '"'))
-        measures.map(measure => {
-            const hemsData = {
+        const hemsData = measures.map(measure => ({
                 hemsId: message.hemsId,
                 deviceId: measure[7],
                 voltage: parseFloat(measure[1]),
@@ -23,11 +22,8 @@ export class HemsSaveDataUsecase implements IHemsSaveDataUsecase {
                 apparentPower: parseFloat(measure[6]),
                 powerFactor: parseFloat(measure[5]),
                 timestamp: new Date(measure[0])
-            }
-            return hemsData
-        });
-        console.log(measures)
-        await this.hemsSaveDataRepository.save(measures)          
+        }));
+        await this.hemsSaveDataRepository.save(hemsData)          
         console.log('Dados salvos no banco de dados!')
         return ({ result: 'ok' })
     }

@@ -15,7 +15,7 @@ export const InfluxHelper = {
     this.org = org
     this.client = new InfluxDB({ url, token })
     this.queryApi = this.client.getQueryApi(org)
-    this.writeApi = this.client.getWriteApi(org)
+    this.writeApi = this.client.getWriteApi(org, "hems-bucket")
   },
 
   async disconnect (): Promise<void> {
