@@ -1,5 +1,5 @@
 
-import { HttpClient, HttpRequest, HttpResponse } from '@/application/boundaries/output/http/http-client'
+import { HttpClient, HttpRequest, HttpResponse } from '@/usecases/boundaries/output/http/http-client'
 
 import axios, { AxiosResponse } from 'axios'
 
