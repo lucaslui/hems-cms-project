@@ -18,9 +18,6 @@ export const deleteUserPath = {
     204: {
       $ref: '#/components/noContent'
     },
-    400: {
-      $ref: '#/components/badRequest'
-    },
     403: {
       $ref: '#/components/forbidden'
     },
