@@ -26,7 +26,7 @@ import {
   PaginationLink
 } from 'reactstrap'
 
-import AccountContext from '../../contexts/account-context'
+import AccountContext from '../../../../configuration/contexts/account-context'
 
 const USER_LIST_INITIAL_STATE: UserModel[] = []
 const USER_INITIAL_STATE: UserModel = { id: '', hemsId: '' }

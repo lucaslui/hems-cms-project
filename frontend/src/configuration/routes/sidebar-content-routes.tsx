@@ -29,8 +29,8 @@ type Item = {
   permissions: Role[]
 }
 
-type MyNav = {
-  type: 'nav'
+type Category = {
+  type: 'category'
   name: string
   icon: IconType
   opened: boolean
@@ -40,9 +40,9 @@ type MyNav = {
 
 const INITIAL_OPENED = true
 
-type RouteModel = Item | MyNav
+type SidebarRouteModel = Item | Category
 
-const customerSidebarRoutes: RouteModel[] = [
+const customerSidebarRoutes: SidebarRouteModel[] = [
   {
     type: 'item',
     path: '/customer/dashboard',
@@ -53,7 +53,7 @@ const customerSidebarRoutes: RouteModel[] = [
     permissions: ['customer']
   },
   {
-    type: 'nav',
+    type: 'category',
     name: 'Management',
     icon: Icons.Desktop,
     opened: INITIAL_OPENED,
@@ -80,7 +80,7 @@ const customerSidebarRoutes: RouteModel[] = [
     permissions: ['customer']
   },
   {
-    type: 'nav',
+    type: 'category',
     name: 'Statistics',
     icon: Icons.ChartArea,
     opened: INITIAL_OPENED,
@@ -153,7 +153,7 @@ const customerSidebarRoutes: RouteModel[] = [
   }
 ]
 
-const adminSidebarRoutes: RouteModel[] = [
+const adminSidebarRoutes: SidebarRouteModel[] = [
   {
     type: 'item',
     path: '/admin/dashboard',
@@ -164,8 +164,8 @@ const adminSidebarRoutes: RouteModel[] = [
     permissions: ['admin']
   },
   {
-    type: 'nav',
-    name: 'Management',
+    type: 'category',
+    name: 'APP Management',
     icon: Icons.Desktop,
     opened: INITIAL_OPENED,
     subItems: [
@@ -236,7 +236,7 @@ const adminSidebarRoutes: RouteModel[] = [
     permissions: ['admin']
   },
   {
-    type: 'nav',
+    type: 'category',
     name: 'System Management',
     icon: Icons.System,
     opened: INITIAL_OPENED,
@@ -263,7 +263,7 @@ const adminSidebarRoutes: RouteModel[] = [
     permissions: ['admin']
   },
   {
-    type: 'nav',
+    type: 'category',
     name: 'Statistics',
     icon: Icons.ChartArea,
     opened: INITIAL_OPENED,
@@ -326,9 +326,9 @@ const adminSidebarRoutes: RouteModel[] = [
     permissions: ['admin']
   },
   {
-    type: 'nav',
+    type: 'category',
     name: 'Alerts',
-    icon: Icons.ChartArea,
+    icon: Icons.Bell,
     opened: INITIAL_OPENED,
     subItems: [
       {
@@ -372,10 +372,10 @@ const adminSidebarRoutes: RouteModel[] = [
   }
 ]
 
-const sidebarRoutes: RouteModel[] =
+const sidebarRoutes: SidebarRouteModel[] =
   customerSidebarRoutes.concat(adminSidebarRoutes)
 
-const filterRoutesByRole = (permission: Role): RouteModel[] => {
+const filterRoutesByRole = (permission: Role): SidebarRouteModel[] => {
   const filteredOneLevel = sidebarRoutes.filter(
     routeModel => routeModel.permissions.some(
       p => p === permission
@@ -397,22 +397,22 @@ const filterRoutesByRole = (permission: Role): RouteModel[] => {
   return filteredTwoLevels
 }
 
-const mapToItemArray = (routes: RouteModel[]): Item[] => {
+const mapToItemArray = (routes: SidebarRouteModel[]): Item[] => {
   const rootItems: Item[] = []
   sidebarRoutes.forEach(routeModel => {
     if (routeModel.type === 'item') rootItems.push(routeModel)
   })
 
-  const rootNavs: MyNav[] = []
+  const rootCategories: Category[] = []
   sidebarRoutes.forEach(routeModel => {
-    if (routeModel.type === 'nav') rootNavs.push(routeModel)
+    if (routeModel.type === 'category') rootCategories.push(routeModel)
   })
 
   const subItems: Item[] = []
-  rootNavs.forEach(nav => nav.subItems
+  rootCategories.forEach(category => category.subItems
     .forEach(item => subItems.push(item)))
 
   return rootItems.concat(subItems)
 }
 
-export { mapToItemArray, sidebarRoutes, filterRoutesByRole, RouteModel, MyNav, Item }
+export { mapToItemArray, sidebarRoutes, filterRoutesByRole, SidebarRouteModel, Category, Item }

@@ -21,7 +21,7 @@ import {
   PaginationLink
 } from 'reactstrap'
 import { FormStatus } from '../../components'
-import AccountContext from '../../contexts/account-context'
+import AccountContext from '../../../../configuration/contexts/account-context'
 import paginate from '../general/paginate'
 
 const HEMS_INITIAL_STATE = {

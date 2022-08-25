@@ -15,9 +15,9 @@ import {
 } from 'reactstrap'
 
 import DefaultAvatar from '@/application/presentation/assets/imgs/default-avatar.png'
-import AccountContext from '@/application/presentation/contexts/account-context'
+import AccountContext from '@/configuration/contexts/account-context'
 
-import headerRoutes from '@/configuration/routes/header-routes'
+import headerRoutes from '@/configuration/routes/header-content-routes'
 import MainLogo from '../main-logo/logo'
 
 type Props = {
@@ -94,7 +94,7 @@ const Header: React.FC<Props> = (props: Props) => {
                   {headerRoutes?.map((route, key) => {
                     return (
                       <NavLink tag="li" key={key}>
-                        <DropdownItem to={`${route.layout}${route.path}`} tag={Link} className="nav-item"> {route.name} </DropdownItem>
+                        <DropdownItem to={`/main${route.path}`} tag={Link} className="nav-item"> {route.name} </DropdownItem>
                       </NavLink>
                     )
                   })}

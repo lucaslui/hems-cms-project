@@ -1,9 +1,9 @@
 {
     "scripts": {
         "up-infra": "docker-compose -f docker-compose-infra.yml up",
-        "down-infra": "docker-compose -f docker-compose-infra.yml up",
-        "build-infra": "docker-compose -f docker-compose-local.yml up",
+        "down-infra": "docker-compose -f docker-compose-infra.yml down",
         "up-local": "docker-compose -f docker-compose-local.yml up",
-        "down-local": "docker-compose -f docker-compose-local.yml up"
+        "down-local": "docker-compose -f docker-compose-local.yml down",
+        "build-local": "docker-compose -f docker-compose-local.yml build"
       }
 }

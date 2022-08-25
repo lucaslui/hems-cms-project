@@ -5,7 +5,7 @@ import Styles from './signup-styles.scss'
 import { LoginHeader, Footer, Input, FormStatus, Logo, Button } from '@/application/presentation/components'
 import { Validation } from '@/application/presentation/protocols/validation'
 import { AddAccount } from '@/usecases/boundaries/input/auth/add-account'
-import AccountContext from '@/application/presentation/contexts/account-context'
+import AccountContext from '@/configuration/contexts/account-context'
 
 type Props = {
   validation: Validation

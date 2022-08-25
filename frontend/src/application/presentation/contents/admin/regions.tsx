@@ -19,7 +19,7 @@ import {
   PaginationLink
 } from 'reactstrap'
 
-import AccountContext from '../../contexts/account-context'
+import AccountContext from '../../../../configuration/contexts/account-context'
 import paginate from '../general/paginate'
 
 const Regions: React.FC = () => {

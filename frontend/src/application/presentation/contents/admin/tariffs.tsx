@@ -2,7 +2,7 @@ import { Tariffs as TariffsModel } from '@/entities/tariffs'
 import flagTypesList from '@/application/presentation/enums/flag-type'
 import useForm from '@/application/presentation/hooks/useForm'
 import React, { useContext, useEffect, useState } from 'react'
-import AccountContext from '../../contexts/account-context'
+import AccountContext from '../../../../configuration/contexts/account-context'
 
 import {
   Button,

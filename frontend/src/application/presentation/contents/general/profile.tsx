@@ -16,7 +16,7 @@ import {
 
 import DefaultAvatar from '@/application/presentation/assets/imgs/default-avatar.png'
 import axios from 'axios'
-import AccountContext from '../../contexts/account-context'
+import AccountContext from '../../../../configuration/contexts/account-context'
 
 const Profile: React.FC = () => {
   const { getCurrentAccount } = useContext(AccountContext)

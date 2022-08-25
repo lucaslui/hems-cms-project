@@ -1,7 +1,7 @@
 import roomsApi from '@/usecases/api/rooms-api'
 import { Room } from '@/entities/room'
 import { existsDisplayRoomType, getRoomType, roomTypeCollection, RoomTypeKey } from '@/application/presentation/enums/room-type'
-import AccountContext from '@/application/presentation/contexts/account-context'
+import AccountContext from '@/configuration/contexts/account-context'
 import useForm from '@/application/presentation/hooks/useForm'
 import useValidate from '@/application/presentation/hooks/useValidate'
 import React, { useContext, useEffect, useRef, useState } from 'react'

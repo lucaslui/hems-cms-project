@@ -1,10 +1,11 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import Router from './routes/router'
+
+import App from './app'
 
 import '@/application/presentation/styles/global.scss'
 
 ReactDOM.render(
-  <Router />,
+  <App />,
   document.getElementById('root')
 )

@@ -2,7 +2,7 @@ import React, { useContext } from 'react'
 import { RouteProps } from 'react-router'
 import { Redirect, Route } from 'react-router-dom'
 
-import AccountContext from '@/application/presentation/contexts/account-context'
+import AccountContext from '@/configuration/contexts/account-context'
 
 const PrivateRoute: React.FC<RouteProps> = (props: RouteProps) => {
   const { getCurrentAccount } = useContext(AccountContext)

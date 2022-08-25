@@ -2,9 +2,9 @@ import React, { useContext, useState } from 'react'
 import { Route, Switch, Redirect, useRouteMatch } from 'react-router-dom'
 
 import Styles from '../../styles/main.scss'
-import { filterRoutesByRole, Item, mapToItemArray, RouteModel } from '@/configuration/routes/sidebar-routes'
-import headerRoutes from '@/configuration/routes/header-routes'
-import AccountContext from '../../contexts/account-context'
+import { filterRoutesByRole, Item, mapToItemArray, SidebarRouteModel } from '@/configuration/routes/sidebar-content-routes'
+import headerRoutes from '@/configuration/routes/header-content-routes'
+import AccountContext from '../../../../configuration/contexts/account-context'
 
 import { Footer, Header, Sidebar } from '@/application/presentation/components'
 
@@ -23,12 +23,12 @@ const Main: React.FC = () => {
     setSidebarOpen(!sidebarOpen)
   }
 
-  const filteredRoutes: RouteModel[] = filterRoutesByRole(role)
+  const filteredRoutes: SidebarRouteModel[] = filterRoutesByRole(role)
   const mapedRoutes: Item [] = mapToItemArray(filteredRoutes)
 
   const getRoutes = (routes: any): Route => {
     return routes.map((route, key) => {
-      if (route.layout === '/main') {
+      if (route.type === 'item') {
         return (
           <Route
             // eslint-disable-next-line @typescript-eslint/restrict-template-expressions

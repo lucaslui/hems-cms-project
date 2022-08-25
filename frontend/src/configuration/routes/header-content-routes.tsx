@@ -1,7 +1,7 @@
 import ChangePassword from '@/application/presentation/contents/general/change-password'
 import Profile from '@/application/presentation/contents/general/profile'
 
-type RouteModel = {
+type HeaderRouteModel = {
   path: string
   name: string
   component: any
@@ -9,7 +9,7 @@ type RouteModel = {
   layout?: string
 }
 
-const headerRoutes: RouteModel[] = [
+const headerRoutes: HeaderRouteModel[] = [
   {
     path: '/general/profile',
     layout: '/main',

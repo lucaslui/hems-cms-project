@@ -9,7 +9,7 @@ app.use(express.static(root))
 app.use(fallback('index.html', { root }))
 
 const host = process.env.HOST || '127.0.0.1'
-const port = process.env.PORT || 3000
+const port = process.env.PORT || 3030
 
 app.listen(port, host,
   () => console.log(`Servidor de arquivos estátiscos rodando em http://${host}:${port}!`)

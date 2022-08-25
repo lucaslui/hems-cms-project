@@ -1,10 +1,10 @@
-import { RouteModel, MyNav } from '@/configuration/routes/sidebar-routes'
+import { SidebarRouteModel, Category } from '@/configuration/routes/sidebar-content-routes'
 import React, { useCallback, useState } from 'react'
 import { NavLink } from 'react-router-dom'
 import { Nav, Collapse } from 'reactstrap'
 
 type Props = {
-  routes: RouteModel[]
+  routes: SidebarRouteModel[]
   toggleSidebar: any
 }
 
@@ -17,7 +17,7 @@ const Sidebar: React.FC<Props> = (props: Props) => {
 
   const setCollapse = useCallback((key): void => {
     console.log('collapse')
-    setRoutes(routes.map((route, k) => k === key ? { ...route, opened: !(route as MyNav).opened } : route))
+    setRoutes(routes.map((route, k) => k === key ? { ...route, opened: !(route as Category).opened } : route))
   }, [routes])
 
   return (
@@ -25,7 +25,7 @@ const Sidebar: React.FC<Props> = (props: Props) => {
       <div className="sidebar-wrapper">
         <Nav>
           {routes.map((route, key) => {
-            if (route.type === 'nav') {
+            if (route.type === 'category') {
               return (
                 <div key={key}>
                   <li className="mt-0">
